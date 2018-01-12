@@ -1,0 +1,17 @@
+﻿@import 'colors';
+@import 'variables';
+
+.color-label {
+    &.color-label__leader {
+        &:before {
+            color: $golden;
+            content: '\f005';
+            font-family: 'FontAwesome';
+            margin-right: 5px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                margin-right: 2px;
+            }
+        }
+    }
+}

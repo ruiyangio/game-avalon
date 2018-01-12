@@ -1,0 +1,46 @@
+﻿@import 'colors';
+
+.btn {
+    padding: 10px 30px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    &.btn-default {
+        background-color: $orange;
+        color: $white;
+    }
+
+    &.btn-cancel {
+        background-color: $lighter-cyan;
+        color: $white;
+    }
+
+    &.btn-action {
+        background-color: $light-teal;
+        color: $white;
+        padding: 7px 20px;
+    }
+
+    &.btn-negative {
+        background-color: $red;
+        color: $white;
+    }
+
+    &.btn-positive {
+        background-color: $light-teal;
+        color: $white;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    &:hover:not([disabled]) {
+        cursor: pointer;
+        opacity: 0.7;
+    }
+}

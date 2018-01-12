@@ -1,0 +1,11 @@
+﻿@import 'colors';
+
+.input-box {
+    border: 1px solid $neutral-light;
+    height: 25px;
+    padding: 0 5px;
+
+    &:hover {
+        border: 1px solid $light-cyan;
+    }
+}

@@ -1,0 +1,103 @@
+@import 'colors';
+@import 'variables';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: $light-gray;
+}
+
+.main-wrapper {
+    padding: 40px;
+
+    @media (max-width: $maxMediaQueryWidth) {
+        padding: 0;
+    }
+}
+
+.main-content {
+    border: 1px solid $neutral-light;
+    background: $white;
+    padding: 20px;
+
+    @media (max-width: $maxMediaQueryWidth) {
+        padding: 5px;
+    }
+}
+
+.spacer {
+    margin-top: 20px;
+
+    &.spacer__hidden {
+        display: none;
+    }
+}
+
+.user-nav {
+    margin-right: 15px;
+    margin-top: 5px;
+    
+    .user-nav--description {
+        color: $light-cyan;
+        font-size: 18px;
+    }
+}
+
+@mixin flexGridSpacing {
+    padding: 15px;
+    margin-right: 20px;
+
+    @media (max-width: $maxMediaQueryWidth) {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 0;
+        margin-right: 0;
+    }
+}
+
+.flex-grid {
+    display: flex;
+    flex-flow: row wrap;
+
+    @media (max-width: $maxMediaQueryWidth) {
+        display: block;
+    }
+
+    > .col-10 {
+        width: 100%;
+
+        @include flexGridSpacing();
+    }
+
+    > .col-7 {
+        width: 75%; 
+        @include flexGridSpacing();
+    }
+
+    > .col-5 {
+        width: 50%; 
+        @include flexGridSpacing();
+    }
+
+    > .col-3 {
+        width: 35%; 
+        @include flexGridSpacing();
+    }
+
+    > .col-2 {
+        width: 20%; 
+        @include flexGridSpacing();
+    }
+}
+
+.main-cards {
+    @media (min-width: 800px) {
+        .chat-box-container {
+            margin-left: 40px;
+            margin-right: 0;
+            margin-top: 45px;
+        }
+    }
+}

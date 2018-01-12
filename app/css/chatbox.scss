@@ -1,0 +1,44 @@
+﻿@import 'colors';
+@import 'variables';
+
+.chat-box {
+    .card .card-content {
+        min-height: 360px;
+        height: 360px;
+        position: relative;
+    }
+
+    .btn {
+        bottom: 0;
+        font-size: 14px;
+        position: absolute;
+        right: 0;
+        margin-right: 15px;
+        margin-bottom: 12px;
+        padding: 5px 14px;
+    }
+
+    .input-box {
+        bottom: 0;
+        position: absolute;
+        left: 0;
+        margin-left: 15px;
+        margin-bottom: 13px;
+        width: 60%;;
+    }
+
+    .chat-box-messages {
+        margin-right: 15px;
+        height: 310px;
+        max-height: 310px;
+        overflow-y: scroll;
+
+        > div {
+            margin-top: 5px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                margin-left: 10px;
+            }
+        }
+    }
+}

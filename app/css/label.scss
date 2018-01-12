@@ -1,0 +1,11 @@
+﻿@import 'colors';
+
+.label {
+    color: $dark-font;
+    margin-right: 15px;
+
+    &.label-error {
+        color: $red;
+        font-size: 12px;
+    }
+}

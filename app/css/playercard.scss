@@ -1,0 +1,88 @@
+﻿@import 'colors';
+@import 'variables';
+
+.player-card {
+    background: $white;
+    border: 1px solid $neutral-light;
+    box-shadow: 0 0 5px $neutral-light;
+    padding: 25px;
+    font-size: 20px;
+    float: left;
+    margin-top: 15px;
+    margin-right: 15px;
+    width: 23%;
+
+    @media (max-width: 1400px) {
+        width: 47%;
+    }
+
+    @media (max-width: $maxMediaQueryWidth) {
+        width: 47%;
+        padding: 15px 5px;
+        font-size: 14px;
+        margin-right: 7px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid $golden;
+    }
+
+    .color-label {
+        @media (max-width: $maxMediaQueryWidth) {
+            display: inline-block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 53%;
+        }
+    }
+
+    .player-card--leader {
+        color: $golden;
+        margin-right: 5px;
+        font-size: 16px;
+    }
+
+    &.player-card__selected {
+        background: $lightest-blue;
+        border: 1px solid $light-blue;
+    }
+
+    .player-card--status {
+        float: right;
+        font-size: 16px;
+        margin-top: 3px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            font-size: 11px;
+        }
+
+        &.player-card--status__negative {
+            color: $red;
+        }
+
+        &.player-card--status__positive {
+            color: $light-teal;
+        }
+
+        &.player-card--status__leader {
+            color: $orange-dark;
+        }
+
+        &.player-card--status__review {
+            color: $light-blue;
+        }
+    }
+
+    .player-card--lady {
+        display: block;
+        color: #26C6DA;
+        font-size: 12px;
+        margin-top: -42px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            font-size: 10px;
+            margin-top: -31px;
+        }
+    }
+}

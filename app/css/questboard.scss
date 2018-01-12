@@ -1,0 +1,102 @@
+﻿@import 'colors';
+@import 'variables';
+
+.quest-board {
+    .quest-circle {
+        display: inline-block;
+        background-color: $white;
+        border: 1px solid $neutral-light;    
+        height: 80px;
+        border-radius: 50%;
+        width: 80px;
+        line-height: 80px;
+        text-align: center;
+        margin-right: 25px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            margin-bottom: 5px;
+            margin-right: 5px;
+            height: 70px;
+            width: 70px;
+        }
+
+        &:hover {
+            border: 1px solid $golden;
+            cursor: pointer;
+        }
+
+        &.quest-circle__success {
+            background: $light-teal;
+            border: 1px solid $golden;
+            
+            .quest-circle--number {
+                color: $white;
+            }
+        }
+
+        &.quest-circle__failed {
+            background: $red;
+            border: 1px solid $golden;
+
+            .quest-circle--number {
+                color: $white;
+            }
+        }
+
+        &.quest-circle__selected {
+            background: $lightest-blue;
+            border: 1px solid $light-blue;
+        }
+
+        .quest-circle--number {
+            color: $light-cyan;
+            font-size: 12px;
+            position: relative;
+            top: -27px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                font-size: 10px;
+            }
+        }
+
+        .quest-circle--players {
+            font-size: 20px;
+            font-weight: bold;
+            position: absolute;
+            margin-left: -24px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                font-size: 14px;
+                margin-left: -19px;
+            }
+        }
+
+        .quest-circle--requirement {
+            color: $orange-dark;
+            font-size: 12px;
+            position: absolute;
+            margin-top: 23px;
+            margin-left: -34px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                font-size: 10px;
+                margin-left: -28px;
+                margin-top: 18px;
+            }
+        }
+
+        .quest-circle--failed-text {
+            color: $white;
+            font-size: 12px;
+            position: absolute;
+            margin-top: 23px;
+            margin-left: -38px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                font-size: 10px;
+                margin-left: -31px;
+                margin-top: 17px;
+            }
+        }
+    }
+}

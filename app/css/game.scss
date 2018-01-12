@@ -1,0 +1,211 @@
+﻿@import 'colors';
+@import 'variables';
+
+@mixin gameBoardSpacing {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.game-container {
+    width: 75%;
+}
+
+.game-setting {
+    .card-content {
+        position: relative;
+        
+        @media (max-width: $maxMediaQueryWidth) {
+            padding-left: 10px;
+        }
+    }
+
+    .game-setting-note {
+        color: $light-gray;
+        font-size: 11px;
+    }
+
+    .game-setting--alert {
+        color: $red;
+        margin-top: 15px;
+    }
+    .game-setting--overview {
+        .drop-down {
+            display: inline-block;
+        }
+
+        > span {
+            color: $light-blue;
+            display: inline-block;
+            margin-left: 100px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                display: block;
+                margin-left: 0px;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .game-setting--game-name {
+        margin-top: 15px;
+    }
+
+    .game-setting--characters {
+        .game-setting--characters-note {
+            margin-top: 15px;
+        }
+    }
+
+    .game-setting--buttons {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 0 15px 12px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            position: relative;
+            margin-bottom: -20px;
+
+            .btn {
+                padding: 10px;
+            }
+        }
+
+        .btn {
+            margin-left: 20px;
+        }
+    }
+}
+
+.game-board {
+    .card-content {
+        position: relative;
+    }
+    
+    .game-board--leave-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-top: 15px;
+        margin-right: 15px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            margin-bottom: 0;
+            margin-left: 15px;
+        }
+
+        .btn {
+            margin-right: 20px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                padding: 10px;
+                margin-right: 0;
+            }
+        }
+    }
+
+    .game-board--name {
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+        @include gameBoardSpacing();
+    }
+
+    .game-board--alert {
+        color: $red;
+        @include gameBoardSpacing();
+    }
+
+    .game-board--summary {
+        color: $light-cyan;
+        margin-top: 30px;
+        margin-left: 15px;
+    }
+
+    .game-board--users {
+        display: table;
+        width: 100%;
+        @include gameBoardSpacing();
+
+        @media (max-width: $maxMediaQueryWidth) {
+            margin-left: 0;
+            padding: 0 16px;
+        }
+
+        .game-board--users-header {
+            font-weight: bold;
+        }
+    }
+
+    .game-board--quest-board {
+        width: 100%;
+    }
+
+    .game-board--quests {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 25px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            margin-left: 15px;
+        }
+    }
+
+    .game-board--notice {
+        border: 1px solid $neutral-light;
+        margin: 30px 15px 0 0;
+        padding: 5px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            margin-left: 15px;
+            font-size: 14px;
+        }
+
+        .game-board--notice-header {
+            color: $light-cyan;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    }
+
+    .game-board--actions {
+        display: table;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .game-board--actions-text {
+            color: $light-cyan;
+            font-size: 18px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .game-board--actions-alert {
+            color: $red;
+            margin-top: 10px;
+        }
+
+        .game-board--actions-button {
+            .btn {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .game-board--history {
+        border: 1px solid $neutral-light;
+        box-shadow: 0 0 5px $neutral-light;
+        margin: 15px;
+
+        .game-board--history-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    }
+
+    .game-board--character {
+        margin: 15px;
+    }
+}

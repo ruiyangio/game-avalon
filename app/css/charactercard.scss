@@ -1,0 +1,55 @@
+﻿@import 'colors';
+
+@mixin characterCardSpacing {
+    margin-top: 10px;
+}
+
+.character-card {
+    border: 1px solid $neutral-light;
+    box-shadow: 0 0 5px $neutral-light;
+    width: 15%;
+    padding: 10px;
+    min-width: 270px;
+
+    .character-card--header {
+        font-weight: bold;
+    }
+
+    .character-card--username {
+        @include characterCardSpacing();
+    }
+
+    .character-card--character {
+        @include characterCardSpacing();
+
+        &.character-card--character__good {
+            color: $light-cyan;
+        }
+
+        &.character-card--character__evil {
+            color: $red;
+        }
+    }
+
+    .character-card--infomation--item {
+        margin-top: 10px;
+    }
+
+    .character-card--sensitive__show {
+        visibility: visible; 
+    }
+
+    .character-card--sensitive__hide {
+        visibility: hidden;
+    }
+
+    .character-card--actions {
+        .btn {
+            font-size: 12px;
+            float: right;
+            padding: 7px;
+            margin-top: -25px;
+            width: 60px;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+@import 'colors';
+@import 'variables';
+
+.card {
+    background: $white;
+    border: 1px solid $neutral-light;
+    box-shadow: 0 0 5px $neutral-light;
+
+    .card-title {
+        background: $light-gray;
+        border-bottom: 1px solid $neutral-light;
+        height: 30px;
+        vertical-align: middle;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 25px;
+        padding-left: 15px;
+    }
+
+    .card-content {
+        padding-left: 25px;
+        padding-bottom: 40px;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            padding-left: 0;
+        }
+
+        &.card-content-lobby {
+            min-height: 580px;
+
+            @media (max-width: $maxMediaQueryWidth) {
+                padding-left: 15px;
+                min-height: 240px;
+            }
+        }
+    }
+}

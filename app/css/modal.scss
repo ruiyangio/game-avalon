@@ -1,0 +1,63 @@
+﻿@import 'colors';
+@import 'variables';
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: $transparent-black;
+
+    .modal--content {
+        background-color: $white;
+        border: 1px solid $neutral-light;
+        width: 30%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @media (max-width: $maxMediaQueryWidth) {
+            width: 85%;
+        }
+    }
+
+    .modal--title {
+        background: $light-gray;
+        border: 1px solid $neutral-light;
+        height: 30px;
+
+        > span {
+            color: $light-cyan;
+            font-weight: bold;
+            vertical-align: sub;
+            padding-left: 10px;
+        }
+    }
+
+    .modal--close-button {
+        color: $light-teal;
+        cursor: pointer;
+        font-size: 27px;
+        float: right;
+
+        &:hover {
+            color: $light-cyan;
+        }
+    }
+
+    .modal--body {
+        padding: 10px;
+    }
+
+    .modal--buttons {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: table;
+    }
+}
