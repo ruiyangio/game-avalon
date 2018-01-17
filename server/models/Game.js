@@ -64,6 +64,7 @@ class Game {
         this.hasLady = this.optionalCharacters.hasOwnProperty('Lady of the lake');
         this.finishedQuests = 0;
         this.history = [];
+        this.countDown = gameSetting.countDown || 0;
     }
 
     _createQuests() {
@@ -638,7 +639,8 @@ class Game {
             summary: this.summary,
             status: this.status,
             currRound: this.currRound,
-            history: this.history
+            history: this.history,
+            countDown: this.countDown
         };
     }
 }

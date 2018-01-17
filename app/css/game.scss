@@ -50,6 +50,18 @@
         margin-top: 15px;
     }
 
+    .game-setting--game-timeout {
+        margin-top: 15px;
+        
+        > input {
+            width: 20%;
+        }
+
+        .game-setting--game-timeout-suffix {
+            margin-left: 5px;
+        }
+    }
+
     .game-setting--characters {
         .game-setting--characters-note {
             margin-top: 15px;
@@ -191,6 +203,15 @@
             .btn {
                 margin-right: 10px;
             }
+        }
+    }
+
+    .game-board--countdown {
+        margin-top: 15px;
+
+        .game-board--countdown-number {
+            color: $light-teal;
+            margin: 0 2px;
         }
     }
 

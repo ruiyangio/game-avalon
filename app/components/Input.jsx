@@ -6,7 +6,7 @@ export default class Input extends React.Component {
     static get propTypes() {
         return {
             theme: PropTypes.string,
-            value: PropTypes.string,
+            value: PropTypes.any,
             changeHandler: PropTypes.func,
             keyPressHandler: PropTypes.func
         };

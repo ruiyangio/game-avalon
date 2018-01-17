@@ -30,7 +30,9 @@ export default class GameBoard extends React.Component {
             actionsAlert: '',
             currUserId: null,
             leaveGameModalOpen: false,
-            gameBrokenNoticeModalOpen: false
+            gameBrokenNoticeModalOpen: false,
+            countDown: props.gameInfo.countDown,
+            countDownId: null
         };
 
         this.creatorBackToLobby = this.creatorBackToLobby.bind(this);
@@ -60,6 +62,8 @@ export default class GameBoard extends React.Component {
         this.openGameBrokenNoticeModal = this.openGameBrokenNoticeModal.bind(this);
         this.closeGameBrokenNoticeModal = this.closeGameBrokenNoticeModal.bind(this);
         this.gameBrokenNoticeModalConfirm = this.gameBrokenNoticeModalConfirm.bind(this);
+        this.dispatchCountDownEvent = this.dispatchCountDownEvent.bind(this);
+        this.setUpCountDown = this.setUpCountDown.bind(this);
     }
 
     componentDidMount() {
@@ -75,9 +79,21 @@ export default class GameBoard extends React.Component {
             const currGameId = util.getGameId();
             if (gameId === currGameId) {
                 util.clearGameId();
-                this.openGameBrokenNoticeModal();
+                self.openGameBrokenNoticeModal();
             }
         });
+    }
+
+    componentDidUpdate() {
+        this.setUpCountDown();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.countDown === 0) {
+            this.setState({
+                countDown: nextProps.gameInfo.countDown
+            });
+        }
     }
 
     getCurrentUser() {
@@ -690,9 +706,6 @@ export default class GameBoard extends React.Component {
                 return <Button text={ (this.getReadyText()) } clickHandler={ this.readyGame } />;
             }
         }
-        case 'Review': {
-            return <Button text='Ready' clickHandler={ this.readyReview } isDisabled={ this.disableReviewButton() } />;
-        }
         case 'Teaming': {
             if (currUser.gameInfo.leader) {
                 return <Button text='Confirm Quest' clickHandler={ this.confirmTeaming } />;
@@ -706,9 +719,6 @@ export default class GameBoard extends React.Component {
                 <Button text='Yes' theme='positive' clickHandler={ () => this.voteQuest(true) } isDisabled={ this.disableVoteButton() } />
                 <Button text='No' theme='negative' clickHandler={ () => this.voteQuest(false) } isDisabled={ this.disableVoteButton() } />
             </div>;
-        }
-        case 'QuestReview': {
-            return <Button text='Next' clickHandler={ this.reviewQuest } isDisabled={ this.disableQuestReviewButton() } />;
         }
         case 'QuestGoing': {
             if (!currUser.gameInfo.selected) {
@@ -736,14 +746,6 @@ export default class GameBoard extends React.Component {
                 return <Button text='Confirm' clickHandler={ this.assassinate } />; 
             }
         }
-        case 'Giving lady': {
-            if (!currUser.gameInfo.hasLady) {
-                return 'No actions needed. Please wait';
-            }
-            else {
-                return <Button text='Give Lady' clickHandler={ this.giveLady } />; 
-            }
-        }
         case 'Investigating': {
             if (!currUser.gameInfo.hasLady) {
                 return 'No actions needed. Please wait';
@@ -755,8 +757,13 @@ export default class GameBoard extends React.Component {
                 </div>;
             }
         }
-        case 'LadyReview': {
-            return <Button text='Next' clickHandler={ this.reviewLadyResult } isDisabled={ this.disableLadyReview() } />;
+        case 'Giving lady': {
+            if (!currUser.gameInfo.hasLady) {
+                return 'No actions needed. Please wait';
+            }
+            else {
+                return <Button text='Give Lady' clickHandler={ this.giveLady } />;
+            }
         }
         default: {
             return;
@@ -863,6 +870,63 @@ export default class GameBoard extends React.Component {
         }
     }
 
+    hasCountDown() {
+        const currUser = this.getCurrentUser();
+        const currGameStatus = this.props.gameInfo.status;
+        if (!currUser || !currGameStatus || !currUser.gameInfo) {
+            return false;
+        }
+
+        const countDownStatuses = {
+            'QuestReview': true,
+            'Review': true,
+            'LadyReview': true
+        };
+
+        return countDownStatuses[currGameStatus] && (currUser.gameInfo.status.indexOf('Reviewed') === -1 && currUser.gameInfo.status.indexOf('Ready') === -1);
+    }
+
+    setUpCountDown() {
+        const self = this;
+
+        if (!self.hasCountDown() || self.state.countDownId || self.state.countDown === 0) {
+            return;
+        }
+
+        const timerId = setInterval(() => {
+            const currCountDown = self.state.countDown;
+            if (currCountDown == 0) {
+                clearInterval(timerId);
+                self.dispatchCountDownEvent();
+                self.setState({
+                    countDownId: null
+                });
+                return;
+            }
+
+            self.setState({
+                countDown: currCountDown - 1,
+                countDownId: timerId
+            });
+        }, 1000);
+    }
+
+    dispatchCountDownEvent() {
+        const currGameStatus = this.props.gameInfo.status;
+        const dispatchMap = {
+            'QuestReview': this.reviewQuest,
+            'Review': this.readyReview,
+            'LadyReview': this.reviewLadyResult
+        };
+
+        const action = dispatchMap[currGameStatus];
+        if (!action) {
+            return;
+        }
+
+        action.apply(this);
+    }
+
     render() {
         return (
             <div className='col-10 game-board'>
@@ -893,6 +957,12 @@ export default class GameBoard extends React.Component {
                     <div className='game-board--actions'>
                         <div className='game-board--actions-text'>Game Actions</div>
                         { this.getGameActions() }
+                        {
+                            this.hasCountDown() &&
+                            <div className='game-board--countdown'>
+                                Moving forward in:<span className='game-board--countdown-number'>{this.state.countDown}</span>seconds
+                            </div>
+                        }
                         <div className='game-board--actions-alert'>{ this.state.actionsAlert }</div>
                     </div>
                     <div className='game-board--users'>

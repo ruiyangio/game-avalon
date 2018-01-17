@@ -2,8 +2,9 @@
   "name": "board-game-avalon",
   "version": "1.0.0",
   "description": "Avalon Board Game",
-  "author": "Rui Yang",
+  "author": "Rui",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "animate.css": "^3.5.2",
     "cookie-parser": "^1.4.3",

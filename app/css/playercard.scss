@@ -35,6 +35,11 @@
             overflow: hidden;
             width: 53%;
         }
+
+        // Fix display issue on iPhone 6
+        @media (max-width: 400px) {
+            width: 45%;
+        }
     }
 
     .player-card--leader {

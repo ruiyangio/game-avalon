@@ -69,6 +69,7 @@ export default class GameSetting extends React.Component {
             gameName: '',
             alertText: '',
             characterNames: optionalCharacterNames,
+            countDown: 3,
             characters: {
                 'Percival': {
                     name: 'Percival',
@@ -107,9 +108,23 @@ export default class GameSetting extends React.Component {
         this.setAlert = this.setAlert.bind(this);
         this.handlerCharacterSelection = this.handlerCharacterSelection.bind(this);
         this.validateSettings = this.validateSettings.bind(this);
+        this.changeCountDown = this.changeCountDown.bind(this);
     }
 
     validateSettings() {
+        if (isNaN(this.state.countDown)) {
+            this.setAlert('Actions time out must be a number');
+            return false;
+        }
+        else if (this.state.countDown < 0) {
+            this.setAlert('Actions time out must be positive');
+            return false;
+        }
+        else if (!Number.isInteger(this.state.countDown)) {
+            this.setAlert('Actions time out must be an integer');
+            return;
+        }
+
         const currCharacters = this.state.characters;
         let ruleLimit = Object.assign({}, GAME_RULES[this.state.playerNumber.value]);
         ruleLimit.good--;
@@ -173,6 +188,13 @@ export default class GameSetting extends React.Component {
         });
     }
 
+    changeCountDown(e) {
+        this.clearAlert();
+        this.setState({
+            countDown: e.target.value
+        });
+    }
+
     setAlert(text) {
         this.setState({
             alertText: text
@@ -213,7 +235,8 @@ export default class GameSetting extends React.Component {
                     }
     
                     return result;
-                }, {})
+                }, {}),
+                countDown: self.state.countDown
             };
 
             util.postRequest('/api/game', gameSettings).then(game => {
@@ -247,8 +270,13 @@ export default class GameSetting extends React.Component {
             <div className='col-5 game-setting'>
                 <Card title='Game settings'>
                     <div className='game-setting--game-name'>
-                        <Label text='Game name'/>
+                        <Label text='Game name:'/>
                         <Input changeHandler={ this.changeGameName } />
+                    </div>
+                    <div className='game-setting--game-timeout'>
+                        <Label text='Actions Timeout:'/>
+                        <Input changeHandler={ this.changeCountDown } value={ this.state.countDown } />
+                        <span className='game-setting--game-timeout-suffix'>seconds</span>
                     </div>
                     <div className='game-setting--overview'>
                         <DropDown
