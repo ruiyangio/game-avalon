@@ -60,7 +60,6 @@ class Game {
             characters: ['Merlin', 'Assassin']
         };
         this.summary.characters = [...this.summary.characters, ...Object.keys(this.optionalCharacters)];
-        this.currRound = 0;
         this.hasLady = this.optionalCharacters.hasOwnProperty('Lady of the lake');
         this.finishedQuests = 0;
         this.history = [];
@@ -135,6 +134,21 @@ class Game {
         return true;
     }
 
+    setFifthPlayer(firstRound) {
+        this.userIds.forEach(userId => {
+            const currUser = this.users[userId];
+            currUser.gameInfo.isFifth = false;
+        });
+
+        let increment = firstRound ? 4 : 5;
+
+        let fifthIndex = this.currLeaderIndex + increment;
+        if (fifthIndex > this.userIds.length - 1) {
+            fifthIndex = fifthIndex - this.userIds.length;
+        }
+        this.users[this.userIds[fifthIndex]].gameInfo.isFifth = true;
+    }
+
     addUser(userId) {
         if (this.users[userId]) {
             return true;
@@ -166,7 +180,8 @@ class Game {
             leader: false,
             selected: false,
             hasLady: false,
-            hadLady: false
+            hadLady: false,
+            isFifth: false
         };
 
         this.userIds.push(userId);
@@ -193,6 +208,7 @@ class Game {
 
         this.changeAllUserStatus(STATUS.WAITING);
         this.changeUserStatus(leaderId, STATUS.LEADER);
+        this.setFifthPlayer(true);
     }
 
     changeUserStatus(userId, status) {
@@ -334,8 +350,10 @@ class Game {
             if (currUser.gameInfo.status === 'No.Reviewed') no++;
         });
 
+        const currLeader = this.users[this.userIds[this.currLeaderIndex]];
+
         // Quest goes
-        if (yes > no || this.currRound == 5) {
+        if (yes > no || currLeader.gameInfo.isFifth) {
             this.status = STATUS.QUEST_GOING;
             this.userIds.forEach(userId => {
                 const currUser = this.users[userId];
@@ -347,16 +365,19 @@ class Game {
                     currUser.gameInfo.status = STATUS.WAITING;
                 }
             });
-            this.currRound = 0;
         }
         else {
             this.toNextRound();
         }
     }
 
-    toNextRound() {
+    toNextRound(setFifth) {
         this.status = STATUS.QUEST_TEAMING;
         this.clearSelections(STATUS.WAITING);
+
+        if (setFifth) {
+            this.setFifthPlayer();
+        }
 
         this.users[this.userIds[this.currLeaderIndex]].gameInfo.leader = false;
         this.currLeaderIndex = (this.currLeaderIndex === this.userIds.length - 1) ? 0 : this.currLeaderIndex + 1;
@@ -401,9 +422,10 @@ class Game {
                         this.changeUserStatus(userId, STATUS.LADY_GIVE);
                     }
                 });
+                this.setFifthPlayer();
             }
             else {
-                this.toNextRound();
+                this.toNextRound(true);
             }
         }
     }
@@ -414,8 +436,8 @@ class Game {
         });
 
         this.quests[questIndex].selected = true;
-        this.currRound++;
-        if (this.currRound === 5) {
+        const currLeader = this.users[this.userIds[this.currLeaderIndex]];
+        if (currLeader.gameInfo.isFifth) {
             this.moveToQuestOrNextRound();
         }
         else {
@@ -638,7 +660,6 @@ class Game {
             quests: this.quests,
             summary: this.summary,
             status: this.status,
-            currRound: this.currRound,
             history: this.history,
             countDown: this.countDown
         };

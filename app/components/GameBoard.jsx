@@ -138,7 +138,7 @@ export default class GameBoard extends React.Component {
         }
         case 'Teaming': {
             if (currUser.gameInfo.leader) {
-                if (this.props.gameInfo.currRound === 4) {
+                if (currUser.gameInfo.isFifth) {
                     return 'This is the fifth round and your team will go';
                 }
                 else {
@@ -146,12 +146,13 @@ export default class GameBoard extends React.Component {
                 }
             }
             else {
-                if (this.props.gameInfo.currRound === 4) {
-                    return 'This is the fifth round. The leader\'s team will go';
+                for (let i = 0; i < this.props.gameInfo.users.length; i++) {
+                    if (this.props.gameInfo.users[i].gameInfo.leader && this.props.gameInfo.users[i].gameInfo.isFifth) {
+                        return 'This is the fifth round. Please wait for the leader to pick a team.';
+                    }
                 }
-                else {
-                    return 'Please wait for the current quest leader to choose a quest and team.';
-                }
+
+                return 'Please wait for the current quest leader to choose a quest and team.';
             }
         }
         case 'Voting': {

@@ -5,7 +5,7 @@
     background: $white;
     border: 1px solid $neutral-light;
     box-shadow: 0 0 5px $neutral-light;
-    padding: 25px;
+    padding: 15px;
     font-size: 20px;
     float: left;
     margin-top: 15px;
@@ -18,7 +18,7 @@
 
     @media (max-width: $maxMediaQueryWidth) {
         width: 47%;
-        padding: 15px 5px;
+        padding: 5px;
         font-size: 14px;
         margin-right: 7px;
     }
@@ -79,15 +79,27 @@
         }
     }
 
+    .player-card--substat {
+        min-height: 15px;
+    }
+
     .player-card--lady {
-        display: block;
-        color: #26C6DA;
+        color: $light-blue;
         font-size: 12px;
-        margin-top: -42px;
+        float: left;
 
         @media (max-width: $maxMediaQueryWidth) {
             font-size: 10px;
-            margin-top: -31px;
+        }
+    }
+
+    .player-card--fifth {
+        color: $light-blue;
+        font-size: 12px;
+        float: right;
+
+        @media (max-width: $maxMediaQueryWidth) {
+            font-size: 10px;
         }
     }
 }

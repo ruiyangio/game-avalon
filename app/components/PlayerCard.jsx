@@ -46,13 +46,21 @@ export default class PlayerCard extends React.Component {
     render() {
         return (
             <div className={ 'player-card' + (this.props.user.gameInfo.selected ? ' player-card__selected' : '')  } onClick={ this.props.clickHandler } >
-                <ColorLabel text={ this.props.user.userName } colorHex={ this.props.user.color } isLeader={ this.props.user.gameInfo.leader } />
-                <span className={ this.getStatusClassName() }>
-                    { this.props.user.gameInfo.status }
-                </span>
-                <span className='player-card--lady'>
-                    { this.props.user.gameInfo.hasLady ? 'Lady of the lake' : '' }
-                </span>
+                <div className='player-card--substat'>
+                    <span className='player-card--lady'>
+                        { this.props.user.gameInfo.hasLady ? 'Lady of the lake' : '' }
+                    </span>
+                    <span className='player-card--fifth'>
+                        { this.props.user.gameInfo.isFifth ? 'Fifth' : '' }
+                    </span>
+                    <div style={{clear: 'both' }}></div>
+                </div>
+                <div className='player-card--mainstat'>
+                    <ColorLabel text={ this.props.user.userName } colorHex={ this.props.user.color } isLeader={ this.props.user.gameInfo.leader } />
+                    <span className={ this.getStatusClassName() }>
+                        { this.props.user.gameInfo.status }
+                    </span>
+                </div>
             </div>
         );
     }
