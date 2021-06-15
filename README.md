@@ -1,5 +1,6 @@
 # Real-time Avalon game
 The Avalon board game Single Page App implementation.
+Link to the game: http://game2.westus.cloudapp.azure.com
 
 ### Motivation
 Avalon is a social/strategy board game we play as part of team building.
